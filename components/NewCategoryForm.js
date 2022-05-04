@@ -16,7 +16,7 @@ const NewCategoryForm = ({ setIsCatFormOpen, cats, setCats }) => {
             <span onClick={() => setIsCatFormOpen(false)} className='absolute right-5 top-5 text-black font-bold cursor-pointer'>x</span>
             <h1 className='text-center my-4 text-xl font-bold text-blue-600'>New Category</h1>
             <div className='m-2'>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                     Name of the Category
                 </label>
                 <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type={"text"} value={txt} onChange={(e) => setTxt(e.target.value)} placeholder="Transportation / Food ..." />
