@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 
-const NewSpendForm = ({setIsOpen}) => {
+const NewSpendForm = ({ setIsOpen, data, setData, cats }) => {
     const initialValues = {
         amount: '',
         category: '',
@@ -20,10 +20,13 @@ const NewSpendForm = ({setIsOpen}) => {
         place: Yup.string()
     })
     const handleSubmit = (values) => {
-        console.log(values)
+        const newData = { ...values, id: Date.now() }
+        const newSpendsData = [...data, newData]
+        setData(() => newSpendsData)
+        window.localStorage.setItem('spendsData', JSON.stringify(newSpendsData))
         setTimeout(() => {
             setIsOpen(false)
-        },500)
+        }, 200)
     }
     const FIELDS = [
         { name: 'amount', type: 'number', options: null, placeholder: 'Enter the amount' },
@@ -34,7 +37,8 @@ const NewSpendForm = ({setIsOpen}) => {
         { name: 'place', type: 'text', options: null, placeholder: 'Enter the place' },
     ]
     return (
-        <div className='bg-white w-11/12 sm:w-1/2 mx-auto sm:my-10 my-20 px-6 py-8'>
+        <div className='bg-white w-11/12 sm:w-1/2 mx-auto sm:my-10 my-20 px-6 py-8 rounded-xl relative'>
+            <span onClick={() => setIsOpen(false)} className='absolute right-5 top-5 text-black font-bold cursor-pointer'>x</span>
             <h1 className='text-center my-4 text-xl font-bold text-blue-600'>New Spend</h1>
             <div>
                 <Formik
@@ -44,16 +48,28 @@ const NewSpendForm = ({setIsOpen}) => {
                 >
                     <Form>
                         {FIELDS.map((field) => (
-                            <div className='my-4' key={field.name}>
-                                <label className='block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300'>{field.placeholder}</label>
-                                <Field className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type={field.type} name={field.name} />
-                                <ErrorMessage name={field.name}>
-                                    {msg => <span className="text-sm text-red-600" >{msg}</span>}
-                                </ErrorMessage>
-                            </div>
+                            field.type === 'select' ?
+                                <div className='my-4' key={field.name}>
+                                    <label className='block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300'>{field.placeholder}</label>
+                                    <Field className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" as={field.type} name={field.name}>
+                                        <option value={''}>Select a category</option>
+                                        {cats.map((option) => (
+                                            <option key={option} value={option} >{option}</option>
+                                        ))}
+                                    </Field>
+                                    <ErrorMessage name={field.name}>
+                                        {msg => <span className="text-sm text-red-600" >{msg}</span>}
+                                    </ErrorMessage>
+                                </div> : <div className='my-4' key={field.name}>
+                                    <label className='block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300'>{field.placeholder}</label>
+                                    <Field className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type={field.type} name={field.name} />
+                                    <ErrorMessage name={field.name}>
+                                        {msg => <span className="text-sm text-red-600" >{msg}</span>}
+                                    </ErrorMessage>
+                                </div>
                         ))}
                         <div className='text-center my-4'>
-                            <button  type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New Spend</button>
+                            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New Spend</button>
                         </div>
                     </Form>
                 </Formik>
