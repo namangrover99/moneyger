@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-const SpendCard = ({ spend, colors, spends, setSpends }) => {
+export const SpendCard = ({ spend, colors, spends, setSpends }) => {
   const [isDltPopupOpen, setIsDltPopupOpen] = useState(false)
   // const randomColorCodeGenerator = () => {
   //   const chars = ['A', 'B', 'C', 'D', 'E', 'F', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
@@ -21,8 +21,8 @@ const SpendCard = ({ spend, colors, spends, setSpends }) => {
 
   return (
     <>
-      <div className={`flex flex-col shadow-lg w-full my-4 md:m-6 md:w-4/12 md:min-h-32 rounded-xl border-4 p-4 cursor-pointer relative`}>
-        <h1 style={{ backgroundColor: colors.length > 0 && colors.find(color => color.category === spend.category)?.color }} className='text-white rounded-lg font-bold w-fit p-2 absolute top-1 left-1'>{spend.category}</h1>
+      <div className={`flex flex-col bg-white shadow-lg w-full my-4 md:m-6 md:w-4/12 md:min-h-32 rounded-xl border-4 p-4 cursor-pointer relative`}>
+        <h1 style={{ backgroundColor: colors?.length > 0 && colors.find(color => color.category === spend.category)?.color }} className='text-white rounded-lg font-bold w-fit p-2 absolute top-1 left-1'>{spend.category}</h1>
         <h1 onClick={() => setIsDltPopupOpen(true)} className='justify-self-end text-red-600 font-bold absolute top-1 left-1/2 -translate-x-1/2'>Delete</h1>
         <h1 className='justify-self-end text-red-600 font-bold absolute top-1 right-2'>Rs.{spend.amount}</h1>
         <h1 className='text-xl mb-4 mt-10'>{spend.desc}</h1>
