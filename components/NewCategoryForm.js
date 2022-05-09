@@ -12,7 +12,7 @@ const NewCategoryForm = ({ setIsCatFormOpen, cats, setCats }) => {
         },200)
     }
     return (
-        <div className='bg-white w-11/12 sm:w-1/4 mx-auto sm:my-20 my-20 px-6 py-8 rounded-xl relative'>
+        <div className='bg-white w-11/12 sm:w-1/4 mx-auto sm:my-10 my-4 px-6 py-4 rounded-xl relative'>
             <span onClick={() => setIsCatFormOpen(false)} className='absolute right-5 top-5 text-black font-bold cursor-pointer'>x</span>
             <h1 className='text-center my-4 text-xl font-bold text-blue-600'>New Category</h1>
             <div className='m-2'>

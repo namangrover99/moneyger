@@ -1,3 +1,4 @@
+import { Delete } from '@material-ui/icons'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -23,7 +24,7 @@ export const SpendCard = ({ spend, colors, spends, setSpends }) => {
     <>
       <div className={`flex flex-col bg-white shadow-lg w-full my-4 md:m-6 md:w-4/12 md:min-h-32 rounded-xl border-4 p-4 cursor-pointer relative`}>
         <h1 style={{ backgroundColor: colors?.length > 0 && colors.find(color => color.category === spend.category)?.color }} className='text-white rounded-lg font-bold w-fit p-2 absolute top-1 left-1'>{spend.category}</h1>
-        <h1 onClick={() => setIsDltPopupOpen(true)} className='justify-self-end text-red-600 font-bold absolute top-1 left-1/2 -translate-x-1/2'>Delete</h1>
+        <h1 onClick={() => setIsDltPopupOpen(true)} className='justify-self-end text-red-600 font-bold absolute top-1 left-1/2 -translate-x-1/2'><Delete /></h1>
         <h1 className='justify-self-end text-red-600 font-bold absolute top-1 right-2'>Rs.{spend.amount}</h1>
         <h1 className='text-xl mb-4 mt-10'>{spend.desc}</h1>
         <div className='flex justify-between'>
@@ -112,6 +113,8 @@ const Spends = () => {
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Travel' && 'bg-blue-800'}`} onClick={() => setSelected('Travel')}>Travel</button>
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Travel' && 'bg-blue-800'}`} onClick={() => {
             setSpends(window.localStorage.getItem('spendsData') ? JSON.parse(window.localStorage.getItem('spendsData')) : [])
+            setSelected('')
+            setSelectedDuration('')
           }}>Clear Filters</button>
           <select type={"select"} className="text-white bg-blue-500 font-medium rounded text-sm px-5 py-2.5 mr-2 mb-2 w-54 outline-none" onChange={(e) => setSelected(e.target.value)} placeholder='Select custom'>
             <option>Select custom category</option>
@@ -125,6 +128,7 @@ const Spends = () => {
             <SpendCard key={spend.id} spend={spend} colors={colors} spends={spends} setSpends={setSpends} />
           ))}
         </div>
+        <h1 className='text-lg md:text-3xl font-bold italic absolute left-1/2 -translate-x-1/2 bottom-10'>Go to <span className='text-blue-500'><Link href='/'>homepage</Link></span></h1>
       </div> : <h1 className='text-center text-xl md:text-3xl font-bold italic'>No Spends To Show... Go to <span className='text-blue-500'><Link href='/'>homepage</Link></span></h1>}
     </div>
   )
