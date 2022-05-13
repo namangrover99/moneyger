@@ -118,7 +118,7 @@ const Spends = () => {
           }}>Clear Filters</button>
           <select type={"select"} className="text-white bg-blue-500 font-medium rounded text-sm px-5 py-2.5 mr-2 mb-2 w-54 outline-none" onChange={(e) => setSelected(e.target.value)} placeholder='Select custom'>
             <option>Select custom category</option>
-            {JSON.parse(window.localStorage.getItem('cats')).map((cat) => (
+            {window.localStorage.getItem('cats') && JSON.parse(window.localStorage.getItem('cats')).map((cat) => (
               <option className='m-5 rounded-lg' key={cat} value={cat}>{cat}</option>
             ))}
           </select>
