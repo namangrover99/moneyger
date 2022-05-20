@@ -54,7 +54,7 @@ const NewSpendForm = ({ setIsOpen, data, setData, cats }) => {
                                     <Field className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" as={field.type} name={field.name}>
                                         <option value={''}>Select a category</option>
                                         {cats.map((option) => (
-                                            <option key={option} value={option} >{option}</option>
+                                            <option key={option} value={option} >{option.split('_').map(word => word?.charAt(0).toUpperCase() + word?.slice(1)).join(' ')}</option>
                                         ))}
                                     </Field>
                                     <ErrorMessage name={field.name}>

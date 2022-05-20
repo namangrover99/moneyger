@@ -32,7 +32,7 @@ const Totals = () => {
                 <div className='flex flex-col p-8 w-full items-center'>
                     {cats?.map((cat) => (
                         <div key={cat} className='flex items-center'>
-                            <button onClick={() => router.push(`/spends/${cat.toLowerCase()}`)} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-64'>{cat}</button>
+                            <button onClick={() => router.push(`/spends/${cat.toLowerCase()}`)} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-64'>{cat.split('_').map(word => word?.charAt(0).toUpperCase() + word?.slice(1)).join(' ')}</button>
                             <Delete className='text-red-500 cursor-pointer' onClick={() => setIsDltPopupOpen(true)} />
                             {isDltPopupOpen && <div className='z-50 fixed top-0 left-0 w-full h-full bg-black-rgba' >
                                 <div className='bg-white w-11/12 sm:w-1/2 mx-auto sm:my-10 my-20 px-4 py-6 rounded-xl relative'>

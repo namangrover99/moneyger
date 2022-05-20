@@ -11,7 +11,7 @@ export default function Home() {
   const [cats, setCats] = useState([])
   useEffect(() => {
     setData(window.localStorage.getItem('spendsData') ? JSON.parse(window.localStorage.getItem('spendsData')) : [])
-    setCats(window.localStorage.getItem('cats') ? JSON.parse(window.localStorage.getItem('cats')) : ['Food', 'Travel'])
+    setCats(window.localStorage.getItem('cats') ? JSON.parse(window.localStorage.getItem('cats')) : [])
   }, [])
   return (
     <>

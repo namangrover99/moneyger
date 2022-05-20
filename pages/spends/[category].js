@@ -6,7 +6,8 @@ import { SpendCard } from '.';
 const Category = () => {
   const router = useRouter()
   const { category } = router.query;
-  const cat = category?.charAt(0).toUpperCase() + category?.slice(1)
+  // const cat = category?.charAt(0).toUpperCase() + category?.slice(1)
+  const cat = category?.split(' ').join('_')
   const [data, setData] = useState([])
   const [spends, setSpends] = useState([])
   const [total, setTotal] = useState(0)

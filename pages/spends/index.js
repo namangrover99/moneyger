@@ -23,14 +23,14 @@ export const SpendCard = ({ spend, colors, spends, setSpends }) => {
   return (
     <>
       <div className={`flex flex-col bg-white shadow-lg w-full my-4 md:m-6 md:w-4/12 md:min-h-32 rounded-xl border-4 p-4 cursor-pointer relative`}>
-        <h1 style={{ backgroundColor: colors?.length > 0 && colors.find(color => color.category === spend.category)?.color }} className='text-white rounded-lg font-bold w-fit p-2 absolute top-1 left-1'>{spend.category}</h1>
-        <h1 onClick={() => setIsDltPopupOpen(true)} className='justify-self-end text-red-600 font-bold absolute top-1 left-1/2 -translate-x-1/2'><Delete /></h1>
+        <h1 style={{ backgroundColor: colors?.length > 0 && colors.find(color => color.category === spend.category)?.color }} className='text-white rounded-lg font-bold w-fit p-2 absolute top-1 left-1'>{spend.category.split('_').map(word => word?.charAt(0).toUpperCase() + word?.slice(1)).join(' ')}</h1>
         <h1 className='justify-self-end text-red-600 font-bold absolute top-1 right-2'>Rs.{spend.amount}</h1>
         <h1 className='text-xl mb-4 mt-10'>{spend.desc}</h1>
         <div className='flex justify-between'>
           <p>At <span className='font-bold'>{spend.time}</span> on <span className='font-bold'>{new Date(spend.date).toDateString()}</span></p>
           <p className='font-bold'>{spend.place}</p>
         </div>
+        <h1 onClick={() => setIsDltPopupOpen(true)} className='justify-self-end text-red-600 font-bold relative w-full'><Delete /></h1>
       </div>
       {isDltPopupOpen && <div className='z-50 fixed top-0 left-0 w-full h-full bg-black-rgba' >
         <div className='bg-white w-11/12 sm:w-1/2 mx-auto sm:my-10 my-20 px-4 py-6 rounded-xl relative'>
@@ -109,8 +109,8 @@ const Spends = () => {
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selectedDuration === 'month' && 'bg-blue-800'}`} onClick={() => setSelectedDuration('month')}>This Month</button>
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selectedDuration === 'week' && 'bg-blue-800'}`} onClick={() => setSelectedDuration('week')}>This Week</button>
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selectedDuration === 'today' && 'bg-blue-800'}`} onClick={() => setSelectedDuration('today')}>Today</button>
-          <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Food' && 'bg-blue-800'}`} onClick={() => setSelected('Food')}>Food</button>
-          <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Travel' && 'bg-blue-800'}`} onClick={() => setSelected('Travel')}>Travel</button>
+          {/* <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Food' && 'bg-blue-800'}`} onClick={() => setSelected('Food')}>Food</button> */}
+          {/* <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Travel' && 'bg-blue-800'}`} onClick={() => setSelected('Travel')}>Travel</button> */}
           <button className={`text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 md:mr-8 mb-2 dark:bg-blue-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-blue-800 ${selected === 'Travel' && 'bg-blue-800'}`} onClick={() => {
             setSpends(window.localStorage.getItem('spendsData') ? JSON.parse(window.localStorage.getItem('spendsData')) : [])
             setSelected('')
@@ -119,7 +119,7 @@ const Spends = () => {
           <select type={"select"} className="text-white bg-blue-500 font-medium rounded text-sm px-5 py-2.5 mr-2 mb-2 w-54 outline-none" onChange={(e) => setSelected(e.target.value)} placeholder='Select custom'>
             <option>Select custom category</option>
             {window.localStorage.getItem('cats') && JSON.parse(window.localStorage.getItem('cats')).map((cat) => (
-              <option className='m-5 rounded-lg' key={cat} value={cat}>{cat}</option>
+              <option className='m-5 rounded-lg' key={cat} value={cat}>{cat.split('_').map(word => word?.charAt(0).toUpperCase() + word?.slice(1)).join(' ')}</option>
             ))}
           </select>
         </div>
