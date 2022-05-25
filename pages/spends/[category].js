@@ -27,7 +27,7 @@ const Category = () => {
     <>
       <div className='p-8 bg-gray-100 min-h-screen'>
         {spends.length > 0 ? <>
-          <h1 className='text-center font-bold text-2xl'>{cat}</h1>
+          <h1 className='text-center font-bold text-2xl'>{cat.split('_').map(word => word?.charAt(0).toUpperCase() + word?.slice(1)).join(' ')}</h1>
           <h1 className='text-center text-2xl my-2'>Total: <span className='text-red-500 font-bold'>{total}</span></h1>
           <h1 className='text-center text-2xl my-2'>This Month: <span className='text-red-500 font-bold'>{thisMonthTotal}</span></h1>
           <div className='md:flex md:flex-wrap'>

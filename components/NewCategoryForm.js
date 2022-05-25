@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const NewCategoryForm = ({ setIsCatFormOpen, cats, setCats }) => {
     const [txt, setTxt] = useState('')
     const handleSave = () => {
-        const newCat = txt.split(' ').join('_')
+        const newCat = txt.toLowerCase().split(' ').join('_')
         const newCats = [...cats, newCat]
         setCats(() => newCats)
         window.localStorage.setItem('cats', JSON.stringify(newCats))
